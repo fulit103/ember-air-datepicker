@@ -3,7 +3,7 @@
 ## Installation
 
 * `git clone <repository-url>`
-* `cd ember-api-datepicker`
+* `cd ember-air-datepicker`
 * `yarn install`
 
 ## Linting

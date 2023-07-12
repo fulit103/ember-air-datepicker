@@ -1,6 +1,6 @@
 # ember-api-datepicker
 
-[Short description of the addon.]
+This is an Ember addon that wraps the [air-datepicker](https://air-datepicker.com/)
 
 
 ## Compatibility
@@ -13,18 +13,13 @@
 ## Installation
 
 ```
-ember install ember-api-datepicker
+ember install ember-air-datepicker
 ```
 
 
 ## Usage
 
-[Longer description of how to use the addon in apps.]
-
-
-## Contributing
-
-See the [Contributing](CONTRIBUTING.md) guide for details.
+<AirDatePicker @onDateSelect={{action this.onDateSelect}}/>
 
 
 ## License

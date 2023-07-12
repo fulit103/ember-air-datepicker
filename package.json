@@ -1,7 +1,7 @@
 {
-  "name": "ember-api-datepicker",
-  "version": "0.0.0",
-  "description": "The default blueprint for ember-cli addons.",
+  "name": "ember-air-datepicker",
+  "version": "0.0.1",
+  "description": "This is an Ember addon that wraps the air-datepicker",
   "keywords": [
     "ember-addon"
   ],
@@ -28,6 +28,11 @@
     "test:ember-compatibility": "ember try:each"
   },
   "dependencies": {
+    "@ember/render-modifiers": "^2.1.0",
+    "air-datepicker": "^3.3.5",
+    "broccoli-funnel": "^3.0.8",
+    "broccoli-merge-trees": "^4.2.0",
+    "broccoli-stew": "^3.0.0",
     "ember-cli-babel": "^7.26.11",
     "ember-cli-htmlbars": "^6.2.0"
   },
