@@ -1,0 +1,8 @@
+<BasicDropdown @onClose={{this.onClose}} as |dd|>
+  <dd.Trigger>
+    <input value={{this.formattedDate}}/>
+  </dd.Trigger>
+  <dd.Content>
+    <AirDatePicker @onDateSelect={{(fn this.onDateSelect dd)}} @range={{@range}}/>
+  </dd.Content>
+</BasicDropdown>

@@ -19,17 +19,20 @@ const LOCALE_EN = {
 };
 
 export default class AirDatePicker extends Component {
+  datepicker = null;
+
   @action
   setupAirDatePicker(element) {
     const initialize = () => {
+      const self = this;
       // eslint-disable-next-line no-undef
-      new AirDatepicker(element, {
+      this.datepicker = new AirDatepicker(element, {
         locale: LOCALE_EN,
         range: this.args.range || false,
         autoClose: this.args.autoClose || true,
         onSelect({ date, formattedDate, datepicker }) {
-          if (this.args.onDateSelect) {
-            this.args.onDateSelect(date, formattedDate, datepicker);
+          if (self.args.onDateSelect) {
+            self.args.onDateSelect(date, formattedDate, datepicker);
           }
         },
       });
@@ -38,11 +41,10 @@ export default class AirDatePicker extends Component {
   }
 
   @action
-  teardownAirDatePicker(element) {
+  teardownAirDatePicker() {
     const destroy = () => {
-      let datepicker = element.data('datepicker');
-      if (datepicker) {
-        datepicker.destroy();
+      if (this.datepicker) {
+        this.datepicker.destroy();
       }
     };
     once(destroy);
