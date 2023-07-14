@@ -2,6 +2,7 @@ import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 import { action } from '@ember/object';
 import { later } from '@ember/runloop';
+import formatDate from '../utils/format-date';
 
 /**
  * @class AirDatePickerDropdown
@@ -14,17 +15,25 @@ export default class AirDatePickerDropdown extends Component {
   range = this.args.range || false;
 
   @tracked
-  date = null;
+  date = this.args.selectedDates || null;
 
   @tracked
-  formattedDate = '';
+  _formattedDate = '';
 
   @action
   onDateSelect(dropdown, date, formattedDate) {
     this.date = date;
-    this.formattedDate = formattedDate;
+    this._formattedDate = formattedDate;
 
     if (this.args.autoClose == true) {
+      if (this.args.onDateSelect) {
+        if (this.range == true && date.length == 2) {
+          this.args.onDateSelect(date, formattedDate, dropdown);
+        } else if (this.range == false) {
+          this.args.onDateSelect(date, formattedDate, dropdown);
+        }
+      }
+
       if (this.range == true && date.length == 2) {
         this.closeLater(dropdown);
       } else if (this.range == false) {
@@ -44,5 +53,21 @@ export default class AirDatePickerDropdown extends Component {
   @action
   onClose() {
     console.log('onClose');
+  }
+
+  get formattedDate() {
+    if (this._formattedDate != '' && this._formattedDate != null) {
+      return this._formattedDate;
+    }
+
+    if (this.date.length >= 2) {
+      return this.date
+        .map((item) => {
+          return formatDate(item, 'MM/dd/yyyy');
+        })
+        .join(',');
+    }
+
+    return formatDate(this.date, 'MM/dd/yyyy');
   }
 }

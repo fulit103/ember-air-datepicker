@@ -1,0 +1,24 @@
+<h2 id="title">Welcome to Ember</h2>
+
+<AirDatePicker @initialSelectedDates={{this.date}} />
+
+<h2>Welcome to Ember Range</h2>
+
+<AirDatePicker @initialSelectedDates={{this.rangeDate}} @range={{true}} />
+
+<h2>Air Picker Dropdown</h2>
+
+<AirDatePickerDropdown
+  @selectedDates={{this.rangeDate}}
+  @range={{true}}
+  @autoClose={{true}}
+  @onDateSelect={{this.onDateRangeSelect}}
+/>
+
+<h2>Air Picker Dropdown</h2>
+
+<AirDatePickerDropdown
+  @selectedDates={{this.date}}
+  @autoClose={{true}}
+  @onDateSelect={{this.onDateSelect}}
+/>

@@ -1,32 +1,27 @@
 import Component from '@glimmer/component';
 import { action } from '@ember/object';
 import { once } from '@ember/runloop';
+import { tracked } from '@glimmer/tracking';
+import LOCALE_EN from '../utils/locales/en';
 
-const LOCALE_EN = {
-  // eslint-disable-next-line prettier/prettier
-  days: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
-  daysShort: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
-  daysMin: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
-  // eslint-disable-next-line prettier/prettier
-  months: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-  // eslint-disable-next-line prettier/prettier
-  monthsShort: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-  today: 'Today',
-  clear: 'Clear',
-  dateFormat: 'MM/dd/yyyy',
-  timeFormat: 'hh:mm aa',
-  firstDay: 0,
-};
-
+/**
+ * AirDatePicker component
+ *
+ * @param {boolean} range - Enable date range selection
+ * @param {boolean} autoClose - Close datepicker on date select
+ * @param {function} onDateSelect - Callback function when date is selected
+ */
 export default class AirDatePicker extends Component {
   datepicker = null;
+
+  @tracked
+  initialSelectedDates = this.args.initialSelectedDates || null;
 
   @action
   setupAirDatePicker(element) {
     const initialize = () => {
       const self = this;
-      // eslint-disable-next-line no-undef
-      this.datepicker = new AirDatepicker(element, {
+      const options = {
         locale: LOCALE_EN,
         range: this.args.range || false,
         autoClose: this.args.autoClose || true,
@@ -35,7 +30,14 @@ export default class AirDatePicker extends Component {
             self.args.onDateSelect(date, formattedDate, datepicker);
           }
         },
-      });
+      };
+
+      if (this.args.initialSelectedDates) {
+        options.selectedDates = [this.args.initialSelectedDates];
+      }
+
+      // eslint-disable-next-line no-undef
+      this.datepicker = new AirDatepicker(element, options);
     };
     once(initialize);
   }
