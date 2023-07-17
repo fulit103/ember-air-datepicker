@@ -1,0 +1,24 @@
+<BasicDropdown @onClose={{this.onClose}} as |dd|>
+  <dd.Trigger>
+    <input
+      aria-label="calendar"
+      title="calendar"
+      value={{this.formattedDate}}
+    />
+  </dd.Trigger>
+  <dd.Content>
+    <div>
+      {{yield
+        (hash Header=(component "air-date-picker-dropdown-header" dd=dd))
+      }}
+      <AirDatePicker
+        @initialSelectedDates={{@selectedDates}}
+        @onDateSelect={{(fn this.onDateSelect dd)}}
+        @range={{@range}}
+      />
+      {{yield
+        (hash Footer=(component "air-date-picker-dropdown-header" dd=dd))
+      }}
+    </div>
+  </dd.Content>
+</BasicDropdown>
