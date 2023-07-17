@@ -19,7 +19,9 @@ ember install ember-air-datepicker
 
 ## Usage
 
-The `AirDatePicker` component can be used in your templates. It accepts the following arguments:
+The `AirDatePicker` and `AirDatePickerDropdown` components can be used in your templates.
+
+### AirDatePicker Component
 
 - `range`: A boolean indicating whether the date picker should allow the selection of a date range. Default is `false`.
 - `autoClose`: A boolean indicating whether the date picker should automatically close after a date is selected. Default is `true`.
@@ -37,6 +39,35 @@ Here is an example of how to use the `AirDatePicker` component:
 
 In this example, `this.isRange`, `this.autoClose`, and `this.onDateSelectAction` should be defined in your component's JavaScript file.
 
+### AirDatePickerDropdown Component
+
+The `AirDatePickerDropdown` component is a dropdown component that contains the `AirDatePicker`. It accepts the same arguments as `AirDatePicker`, as well as:
+
+- `selectedDates`: An array of Date objects that sets the initially selected date(s).
+- `onClose`: An action that is called when the dropdown is closed.
+
+Here is an example of how to use the `AirDatePickerDropdown` component:
+
+```handlebars
+<AirDatePickerDropdown
+  @selectedDates={{this.rangeDate}}
+  @range={{true}}
+  @autoClose={{true}}
+  @onDateSelect={{this.onDateRangeSelect}}
+  as |dp|
+>
+  <dp.Header>
+    <!-- Insert header content here -->
+  </dp.Header>
+
+  <dp.Footer>
+    <!-- Insert footer content here -->
+  </dp.Footer>
+
+</AirDatePickerDropdown>
+```
+
+In this example, this.rangeDate, this.onDateRangeSelect should be defined in your component's JavaScript file. You can also provide custom Header and Footer content as shown.
 
 ## License
 
