@@ -13,7 +13,25 @@
   @range={{true}}
   @autoClose={{true}}
   @onDateSelect={{this.onDateRangeSelect}}
-/>
+  as |dp|
+>
+
+  <dp.Header>
+    <div>
+      <input aria-label="calendar1" type="radio" />
+      <label for="calendar1">Last 7 days</label>
+    </div>
+    <div>
+      <input aria-label="calendar2" type="radio" />
+      <label for="calendar2">Last 90 days</label>
+    </div>
+  </dp.Header>
+
+  <dp.Footer>
+    <button type="button">Apply</button>
+  </dp.Footer>
+
+</AirDatePickerDropdown>
 
 <h2>Air Picker Dropdown</h2>
 
