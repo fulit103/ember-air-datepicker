@@ -15,32 +15,45 @@ import { once } from '@ember/runloop';
  */
 export default class AirDatePickerDropdown extends Component {
   range = this.args.range || false;
+  datesApplied = false;
+  dropdown = null;
+
+  @tracked
+  updateOnConfirm = this.args.updateOnConfirm || false;
 
   @tracked
   date = this.args.selectedDates || null;
+
+  newDate = this.args.selectedDates || null;
 
   @tracked
   _formattedDate = '';
 
   @action
   onDateSelect(date, formattedDate, dropdown) {
-    this.date = date;
-    this._formattedDate = formattedDate;
+    if (this.updateOnConfirm == false || this.datesApplied == true) {
+      this.datesApplied = false;
+      this.date = date;
+      this._formattedDate = formattedDate;
 
-    if (this.args.autoClose == true) {
-      if (this.args.onDateSelect) {
+      if (this.args.autoClose == true) {
+        if (this.args.onDateSelect) {
+          if (this.range == true && date.length == 2) {
+            this.args.onDateSelect(date, formattedDate);
+          } else if (this.range == false) {
+            this.args.onDateSelect(date, formattedDate);
+          }
+        }
+
         if (this.range == true && date.length == 2) {
-          this.args.onDateSelect(date, formattedDate);
+          this.closeLater(dropdown);
         } else if (this.range == false) {
-          this.args.onDateSelect(date, formattedDate);
+          this.closeLater(dropdown);
         }
       }
-
-      if (this.range == true && date.length == 2) {
-        this.closeLater(dropdown);
-      } else if (this.range == false) {
-        this.closeLater(dropdown);
-      }
+    } else {
+      this.newDate = date;
+      console.log('onDateSelect', date, formattedDate, this.datesApplied);
     }
   }
 
@@ -59,8 +72,20 @@ export default class AirDatePickerDropdown extends Component {
 
   @action
   setDates(dates) {
-    this.date = dates;
-    this.datepicker.selectDate(this.date);
+    this.newDate = dates;
+    if (this.updateOnConfirm == true && this.datesApplied == true) {
+      this.date = dates;
+    } else if (this.updateOnConfirm == false) {
+      this.date = dates;
+    }
+    this.datepicker.selectDate(dates);
+  }
+
+  @action
+  applyDates() {
+    this.datesApplied = true;
+    this.datepicker.selectDate(this.newDate);
+    this.closeLater(this.dropdown);
   }
 
   get formattedDate() {
@@ -83,6 +108,7 @@ export default class AirDatePickerDropdown extends Component {
     return {
       actions: {
         setDates: this.setDates,
+        applyDates: this.applyDates,
       },
     };
   }
@@ -94,6 +120,7 @@ export default class AirDatePickerDropdown extends Component {
 
   @action
   setupAirDatePicker(dropdown, element) {
+    this.dropdown = dropdown;
     const initialize = () => {
       const self = this;
       const options = {

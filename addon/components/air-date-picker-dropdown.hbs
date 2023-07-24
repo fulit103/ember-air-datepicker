@@ -11,11 +11,6 @@
       {{yield
         (hash actions=this.publicAPI.actions Header=(component "air-date-picker-dropdown-header" dd=dd))
       }}
-      <!--<AirDatePicker
-        @initialSelectedDates={{this.date}}
-        @onDateSelect={{(fn this.onDateSelect dd)}}
-        @range={{@range}}
-      />-->
 
       <div {{did-insert (fn this.setupAirDatePicker dd)}} {{will-destroy this.teardownAirDatePicker}} ></div>
 

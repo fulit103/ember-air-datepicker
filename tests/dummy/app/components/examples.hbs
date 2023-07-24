@@ -4,11 +4,12 @@
   @selectedDates={{this.rangeDate}}
   @range={{true}}
   @autoClose={{false}}
+  @updateOnConfirm={{true}}  
   @onDateSelect={{this.onDateRangeSelect}}
   as |dp|
 >
 
-  <dp.Header as |setDates|>
+  <dp.Header>
     <div>
       <input aria-label="calendar1" type="radio" name="group1" {{ on 'click' (fn this.clickLastXDays dp 7) }}/>
       <label for="calendar1">Last 7 days</label>
@@ -24,7 +25,7 @@
   </dp.Header>
 
   <dp.Footer>
-    <button type="button">Apply</button>
+    <button type="button" {{on "click" dp.actions.applyDates}}>Apply</button>
   </dp.Footer>
 
 </AirDatePickerDropdown>
