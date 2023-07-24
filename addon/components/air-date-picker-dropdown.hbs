@@ -9,15 +9,13 @@
   <dd.Content>
     <div>
       {{yield
-        (hash Header=(component "air-date-picker-dropdown-header" dd=dd))
+        (hash actions=this.publicAPI.actions Header=(component "air-date-picker-dropdown-header" dd=dd))
       }}
-      <AirDatePicker
-        @initialSelectedDates={{@selectedDates}}
-        @onDateSelect={{(fn this.onDateSelect dd)}}
-        @range={{@range}}
-      />
+
+      <div {{did-insert (fn this.setupAirDatePicker dd)}} {{will-destroy this.teardownAirDatePicker}} ></div>
+
       {{yield
-        (hash Footer=(component "air-date-picker-dropdown-header" dd=dd))
+        (hash actions=this.publicAPI.actions Footer=(component "air-date-picker-dropdown-header" dd=dd))
       }}
     </div>
   </dd.Content>

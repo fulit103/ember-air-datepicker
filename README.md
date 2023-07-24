@@ -48,26 +48,71 @@ The `AirDatePickerDropdown` component is a dropdown component that contains the 
 
 Here is an example of how to use the `AirDatePickerDropdown` component:
 
+
+
+The `AirDatePickerDropdown` component is a dropdown component that contains the `AirDatePicker`. It accepts the same arguments as `AirDatePicker`, as well as:
+
+- `selectedDates`: An array of Date objects that sets the initially selected date(s).
+- `autoClose`: A boolean indicating whether the dropdown should automatically close after a date is selected. Default is `false`.
+- `updateOnConfirm`: A boolean indicating whether the dropdown should update the date only on confirmation. Default is `false`.
+- `onClose`: An action that is called when the dropdown is closed.
+
+Here is an example of how to use the AirDatePickerDropdown component:
+
 ```handlebars
 <AirDatePickerDropdown
   @selectedDates={{this.rangeDate}}
   @range={{true}}
-  @autoClose={{true}}
+  @autoClose={{false}}
+  @updateOnConfirm={{true}}
   @onDateSelect={{this.onDateRangeSelect}}
   as |dp|
 >
   <dp.Header>
-    <!-- Insert header content here -->
+    <div>
+      <input aria-label="calendar1" type="radio" name="group1" {{ on 'click' (fn this.clickLastXDays dp 7) }}/>
+      <label for="calendar1">Last 7 days</label>
+    </div>
+    <div>
+      <input aria-label="calendar2" type="radio" name="group1" {{ on 'click' (fn this.clickLastXDays dp 15) }}/>
+      <label for="calendar2">Last 15 days</label>
+    </div>
+    <div>
+      <input aria-label="calendar3" type="radio" name="group1" {{ on 'click' (fn this.clickLastXDays dp 30) }}/>
+      <label for="calendar3">Last 30 days</label>
+    </div>
   </dp.Header>
 
   <dp.Footer>
-    <!-- Insert footer content here -->
+    <button type="button" {{on "click" dp.actions.applyDates}}>Apply</button>
   </dp.Footer>
 
 </AirDatePickerDropdown>
 ```
 
-In this example, this.rangeDate, this.onDateRangeSelect should be defined in your component's JavaScript file. You can also provide custom Header and Footer content as shown.
+In this example, `this.rangeDate`, `this.onDateRangeSelect` and `this.clickLastXDays` should be defined in your component's JavaScript file. You can also provide custom Header and Footer content as shown.
+
+Here's an example of how to define the `clickLastXDays` method in your JavaScript file:
+
+
+```javascript
+import Component from '@glimmer/component';
+import { action } from '@ember/object';
+
+export default class DatePickerComponent extends Component {
+
+  @action
+  clickLastXDays(dp, days) {
+    let newDate = new Date();
+    newDate.setDate(newDate.getDate() - days);
+    dp.actions.setDates([newDate, new Date()]);
+  }
+  
+  // define other methods and actions here...
+}
+```
+
+This method uses the `setDates` action of the date picker to set the selected dates range from today's date to the past number of days specified.
 
 ## License
 

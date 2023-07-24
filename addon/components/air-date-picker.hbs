@@ -1,1 +1,10 @@
-<div {{did-insert this.setupAirDatePicker}} {{will-destroy this.teardownAirDatePicker}} />
+{{#let
+  (hash    
+    actions=this.publicAPI.actions    
+  )
+as |api|
+}}
+  <div {{did-insert this.setupAirDatePicker}} {{will-destroy this.teardownAirDatePicker}} >{{yield api}}</div>
+{{/let}}
+
+

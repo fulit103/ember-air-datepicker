@@ -34,4 +34,9 @@ export default class Examples extends Component {
     console.log('what is date?' + date);
     this._rangeDate = date;
   }
+
+  @action
+  clickLastXDays(dp, days) {
+    dp.actions.setDates([this.addDays(new Date(), -days), new Date()]);
+  }
 }
