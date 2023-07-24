@@ -51,4 +51,12 @@ export default class AirDatePicker extends Component {
     };
     once(destroy);
   }
+
+  get publicAPI() {
+    return {
+      setDates: (dates) => {
+        this.datepicker.selectDate(dates);
+      },
+    };
+  }
 }
