@@ -17,14 +17,19 @@ export default class AirDatePickerDropdown extends Component {
   range = this.args.range || false;
   datesApplied = false;
   dropdown = null;
+  datepicker = null;
+
+  @tracked
+  initialSelectedDates = this.args.initialSelectedDates || null;
+
+  @tracked
+  newDate = this.args.selectedDates || null;
 
   @tracked
   updateOnConfirm = this.args.updateOnConfirm || false;
 
   @tracked
   date = this.args.selectedDates || null;
-
-  newDate = this.args.selectedDates || null;
 
   @tracked
   _formattedDate = '';
@@ -88,36 +93,6 @@ export default class AirDatePickerDropdown extends Component {
     this.closeLater(this.dropdown);
   }
 
-  get formattedDate() {
-    if (this._formattedDate != '' && this._formattedDate != null) {
-      return this._formattedDate;
-    }
-
-    if (this.date.length >= 2) {
-      return this.date
-        .map((item) => {
-          return formatDate(item, 'MM/dd/yyyy');
-        })
-        .join(',');
-    }
-
-    return formatDate(this.date, 'MM/dd/yyyy');
-  }
-
-  get publicAPI() {
-    return {
-      actions: {
-        setDates: this.setDates,
-        applyDates: this.applyDates,
-      },
-    };
-  }
-
-  datepicker = null;
-
-  @tracked
-  initialSelectedDates = this.args.initialSelectedDates || null;
-
   @action
   setupAirDatePicker(dropdown, element) {
     this.dropdown = dropdown;
@@ -127,6 +102,8 @@ export default class AirDatePickerDropdown extends Component {
         locale: LOCALE_EN,
         range: this.args.range || false,
         autoClose: this.args.autoClose || true,
+        minDate: this.args.minDate || '',
+        maxDate: this.args.maxDate || '',
         onSelect({ date, formattedDate }) {
           if (self.onDateSelect) {
             self.onDateSelect(date, formattedDate, dropdown);
@@ -152,5 +129,36 @@ export default class AirDatePickerDropdown extends Component {
       }
     };
     once(destroy);
+  }
+
+  get unconfirmedFormattedDate() {
+    return this.formatAndJoinDates(this.newDate);
+  }
+
+  get formattedDate() {
+    if (this._formattedDate != '' && this._formattedDate != null) {
+      return this._formattedDate;
+    }
+    return this.formatAndJoinDates(this.date);
+  }
+
+  get publicAPI() {
+    return {
+      actions: {
+        setDates: this.setDates,
+        applyDates: this.applyDates,
+      },
+    };
+  }
+
+  formatAndJoinDates(dates) {
+    if (dates.length >= 2) {
+      return dates
+        .map((item) => {
+          return formatDate(item, 'MM/dd/yyyy');
+        })
+        .join(',');
+    }
+    return formatDate(dates, 'MM/dd/yyyy');
   }
 }

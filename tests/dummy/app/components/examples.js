@@ -9,12 +9,22 @@ export default class Examples extends Component {
   @tracked
   _rangeDate = [new Date(), this.addDays(new Date(), 4)];
 
+  @tracked showCustomInput = false;
+
   get date() {
     return this._date;
   }
 
   get rangeDate() {
     return this._rangeDate;
+  }
+
+  get minDate() {
+    return this.addDays(new Date(), -60);
+  }
+
+  get maxDate() {
+    return this.addDays(new Date(), 1);
   }
 
   addDays(date, days) {
@@ -37,6 +47,7 @@ export default class Examples extends Component {
 
   @action
   clickLastXDays(dp, days) {
+    this.showCustomInput = false;
     dp.actions.setDates([this.addDays(new Date(), -days), new Date()]);
   }
 }

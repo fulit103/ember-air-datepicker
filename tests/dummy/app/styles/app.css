@@ -1,1 +1,13 @@
 /* Ember supports plain CSS out of the box. More info: https://cli.emberjs.com/release/advanced-use/stylesheets/ */
+.air-datepicker {
+  border: none !important;
+}
+
+.dropdown-content {
+  border: 1px solid lightgray;
+  margin-top: 4px;
+}
+
+.margin {
+  margin: 10px 10px;
+}
