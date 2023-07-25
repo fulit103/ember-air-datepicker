@@ -1,52 +1,68 @@
 <h2>Air Picker Dropdown</h2>
-<div style="display: flex; justify-content: center; align-items: center;">
+<div class="center">
   <AirDatePickerDropdown
     @selectedDates={{this.rangeDate}}
     @range={{true}}
     @autoClose={{false}}
-    @updateOnConfirm={{true}}  
+    @updateOnConfirm={{true}}
     @onDateSelect={{this.onDateRangeSelect}}
     @minDate={{this.minDate}}
     @maxDate={{this.maxDate}}
-    @triggerComponent={{component "air-date-picker-dropdown-trigger"}}
+    @triggerComponent={{true}}
     as |dp|
   >
     <dp.Trigger>
       <label for="calendar">Date Range</label>
-      <input 
-        aria-label="calendar" 
-        title="calendar" 
-        value={{dp.formattedDate}}         
+      <input
+        aria-label="calendar"
+        title="calendar"
+        value={{dp.formattedDate}}
       />
     </dp.Trigger>
 
     <dp.Header>
       <div class="margin">
         <div>
-          <input aria-label="calendar1" type="radio" name="group1" {{ on 'click' (fn this.clickLastXDays dp 7) }}/>
+          <input
+            aria-label="calendar1"
+            type="radio"
+            name="group1"
+            {{on "click" (fn this.clickLastXDays dp 7)}}
+          />
           <label for="calendar1">Last 7 days</label>
         </div>
         <div>
-          <input aria-label="calendar2" type="radio" name="group1" {{ on 'click' (fn this.clickLastXDays dp 15) }}/>
+          <input
+            aria-label="calendar2"
+            type="radio"
+            name="group1"
+            {{on "click" (fn this.clickLastXDays dp 15)}}
+          />
           <label for="calendar2">Last 15 days</label>
         </div>
         <div>
-          <input aria-label="calendar3" type="radio" name="group1" {{ on 'click' (fn this.clickLastXDays dp 30) }}/>
+          <input
+            aria-label="calendar3"
+            type="radio"
+            name="group1"
+            {{on "click" (fn this.clickLastXDays dp 30)}}
+          />
           <label for="calendar2">Last 30 days</label>
         </div>
         <div>
-          <input 
-            aria-label="calendar3" 
-            type="radio" 
-            name="group1" 
-            {{ on 'click' (action (mut this.showCustomInput) true) }} 
+          <input
+            aria-label="calendar4"
+            type="radio"
+            name="group1"
+            {{on "click" (fn (mut this.showCustomInput) true)}}
           />
-          <label for="calendar2">Custom</label>
+          <label for="calendar4">Custom</label>
           {{#if this.showCustomInput}}
-            <input 
-              type="text" 
-              placeholder="Custom Range" 
-              value={{dp.unconfirmedFormattedDate}} 
+            <input
+              aria-label="calendar4"
+              type="text"
+              placeholder="Custom Range"
+              value={{dp.unconfirmedFormattedDate}}
             />
           {{/if}}
         </div>
@@ -55,7 +71,10 @@
 
     <dp.Footer>
       <div class="margin">
-        <button type="button" {{on "click" dp.actions.applyDates}}>Apply</button>
+        <button
+          type="button"
+          {{on "click" dp.actions.applyDates}}
+        >Apply</button>
       </div>
     </dp.Footer>
 

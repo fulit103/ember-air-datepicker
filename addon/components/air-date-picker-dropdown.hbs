@@ -1,24 +1,28 @@
 <BasicDropdown @onClose={{this.onClose}} as |dd|>
   <dd.Trigger>
-    {{#let (hash
-      formattedDate=this.formattedDate
-      unconfirmedFormattedDate=this.unconfirmedFormattedDate
-      actions=this.publicAPI.actions
-      dd=dd
-      Trigger=(component "air-date-picker-dropdown-trigger" dd=dd)
-    ) as |api|}}    
-      {{#if @triggerComponent}}
-        {{yield api}}
-      {{else}}        
-        <input
-          aria-label="calendar"
-          title="calendar"
-          value={{this.formattedDate}}
-        />
-      {{/if}}
-    {{/let}}
-
-    
+    {{#if @triggerComponent}}
+      {{yield
+        (
+          hash 
+            formattedDate=this.formattedDate
+            unconfirmedFormattedDate=this.unconfirmedFormattedDate
+            actions=this.publicAPI.actions
+            Trigger=(
+              component
+                "air-date-picker-dropdown-trigger"
+                dd=dd
+                formattedDate=this.formattedDate
+                triggerComponent=@triggerComponent
+            )
+        )
+      }}
+    {{else}}
+      <input
+        aria-label="calendar"
+        title="calendar"
+        value={{this.formattedDate}}
+      />
+    {{/if}}
   </dd.Trigger>
   <dd.Content class="dropdown-content">
       {{yield
