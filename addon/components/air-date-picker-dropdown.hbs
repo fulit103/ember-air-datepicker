@@ -1,4 +1,4 @@
-<BasicDropdown @onClose={{this.onClose}} as |dd|>
+<BasicDropdown @onClose={{this.onClose}} @renderInPlace={{@renderInPlace}} as |dd|>
   <dd.Trigger>
     {{#if @triggerComponent}}
       {{yield
