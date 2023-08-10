@@ -25,28 +25,30 @@
         />
       {{/if}}
     </dd.Trigger>
-    <dd.Content class="dropdown-content">
-        {{yield
-          (
-            hash 
-              formattedDate=this.formattedDate
-              unconfirmedFormattedDate=this.unconfirmedFormattedDate
-              actions=this.publicAPI.actions
-              Header=(component "air-date-picker-dropdown-header" dd=dd)
-          )
-        }}
+      <dd.Content class="dropdown-content">
+          {{yield
+            (
+              hash 
+                formattedDate=this.formattedDate
+                unconfirmedFormattedDate=this.unconfirmedFormattedDate
+                actions=this.publicAPI.actions
+                Header=(component "air-date-picker-dropdown-header" dd=dd)
+            )
+          }}
 
-        <div {{did-insert (fn this.setupAirDatePicker dd)}} {{will-destroy this.teardownAirDatePicker}} ></div>
+          {{#if this.showCalendar}}
+            <div {{did-insert (fn this.setupAirDatePicker dd)}} {{will-destroy this.teardownAirDatePicker}} ></div>
+          {{/if}}
 
-        {{yield
-          (
-            hash
-              formattedDate=this.formattedDate
-              unconfirmedFormattedDate=this.unconfirmedFormattedDate
-              actions=this.publicAPI.actions
-              Footer=(component "air-date-picker-dropdown-header" dd=dd isFooter=true)
-          )
-        }}
-    </dd.Content>
+          {{yield
+            (
+              hash
+                formattedDate=this.formattedDate
+                unconfirmedFormattedDate=this.unconfirmedFormattedDate
+                actions=this.publicAPI.actions
+                Footer=(component "air-date-picker-dropdown-header" dd=dd isFooter=true)
+            )
+          }}
+      </dd.Content>
   </BasicDropdown>
 </div>

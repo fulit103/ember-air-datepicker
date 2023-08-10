@@ -1,10 +1,9 @@
+import { action } from '@ember/object';
+import { later, once } from '@ember/runloop';
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
-import { action } from '@ember/object';
-import { later } from '@ember/runloop';
 import formatDate from '../utils/format-date';
 import LOCALE_EN from '../utils/locales/en';
-import { once } from '@ember/runloop';
 
 /**
  * @class AirDatePickerDropdown
@@ -33,6 +32,12 @@ export default class AirDatePickerDropdown extends Component {
 
   @tracked
   _formattedDate = '';
+
+  get showCalendar() {
+    if ([undefined, null].includes(this.args.showCalendar)) return true;
+
+    return this.args.showCalendar;
+  }
 
   @action
   onDateSelect(date, formattedDate, dropdown) {
