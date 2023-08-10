@@ -1,50 +1,52 @@
-<BasicDropdown @onClose={{this.onClose}} @renderInPlace={{@renderInPlace}} as |dd|>
-  <dd.Trigger>
-    {{#if @triggerComponent}}
-      {{yield
-        (
-          hash 
-            formattedDate=this.formattedDate
-            unconfirmedFormattedDate=this.unconfirmedFormattedDate
-            actions=this.publicAPI.actions
-            Trigger=(
-              component
-                "air-date-picker-dropdown-trigger"
-                dd=dd
-                formattedDate=this.formattedDate
-                triggerComponent=@triggerComponent
-            )
-        )
-      }}
-    {{else}}
-      <input
-        aria-label="calendar"
-        title="calendar"
-        value={{this.formattedDate}}
-      />
-    {{/if}}
-  </dd.Trigger>
-  <dd.Content class="dropdown-content">
-      {{yield
-        (
-          hash 
-            formattedDate=this.formattedDate
-            unconfirmedFormattedDate=this.unconfirmedFormattedDate
-            actions=this.publicAPI.actions
-            Header=(component "air-date-picker-dropdown-header" dd=dd)
-        )
-      }}
+<div class={{@additionalClasses}}>
+  <BasicDropdown @onClose={{this.onClose}} @renderInPlace={{@renderInPlace}} as |dd|>
+    <dd.Trigger>
+      {{#if @triggerComponent}}
+        {{yield
+          (
+            hash 
+              formattedDate=this.formattedDate
+              unconfirmedFormattedDate=this.unconfirmedFormattedDate
+              actions=this.publicAPI.actions
+              Trigger=(
+                component
+                  "air-date-picker-dropdown-trigger"
+                  dd=dd
+                  formattedDate=this.formattedDate
+                  triggerComponent=@triggerComponent
+              )
+          )
+        }}
+      {{else}}
+        <input
+          aria-label="calendar"
+          title="calendar"
+          value={{this.formattedDate}}
+        />
+      {{/if}}
+    </dd.Trigger>
+    <dd.Content class="dropdown-content">
+        {{yield
+          (
+            hash 
+              formattedDate=this.formattedDate
+              unconfirmedFormattedDate=this.unconfirmedFormattedDate
+              actions=this.publicAPI.actions
+              Header=(component "air-date-picker-dropdown-header" dd=dd)
+          )
+        }}
 
-      <div {{did-insert (fn this.setupAirDatePicker dd)}} {{will-destroy this.teardownAirDatePicker}} ></div>
+        <div {{did-insert (fn this.setupAirDatePicker dd)}} {{will-destroy this.teardownAirDatePicker}} ></div>
 
-      {{yield
-        (
-          hash
-            formattedDate=this.formattedDate
-            unconfirmedFormattedDate=this.unconfirmedFormattedDate
-            actions=this.publicAPI.actions
-            Footer=(component "air-date-picker-dropdown-header" dd=dd)
-        )
-      }}
-  </dd.Content>
-</BasicDropdown>
+        {{yield
+          (
+            hash
+              formattedDate=this.formattedDate
+              unconfirmedFormattedDate=this.unconfirmedFormattedDate
+              actions=this.publicAPI.actions
+              Footer=(component "air-date-picker-dropdown-header" dd=dd)
+          )
+        }}
+    </dd.Content>
+  </BasicDropdown>
+</div>
