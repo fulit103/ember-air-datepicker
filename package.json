@@ -1,6 +1,6 @@
 {
   "name": "ember-air-datepicker",
-  "version": "0.0.41",
+  "version": "0.0.43",
   "description": "This is an Ember addon that wraps the air-datepicker",
   "keywords": [
     "ember-addon"
@@ -29,7 +29,7 @@
   },
   "dependencies": {
     "@ember/render-modifiers": "^2.1.0",
-    "air-datepicker": "^3.3.5",
+    "air-datepicker": "^3.4.0",
     "broccoli-funnel": "^3.0.8",
     "broccoli-merge-trees": "^4.2.0",
     "broccoli-stew": "^3.0.0",

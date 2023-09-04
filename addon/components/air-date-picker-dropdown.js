@@ -109,7 +109,16 @@ export default class AirDatePickerDropdown extends Component {
         autoClose: this.args.autoClose || true,
         minDate: this.args.minDate || '',
         maxDate: this.args.maxDate || '',
-        onSelect({ date, formattedDate }) {
+        toggleSelected: ({ datepicker }) => {
+          if (self.args.range == true) {
+            if (datepicker.selectedDates.length == 2) {
+              return true;
+            }
+            return false;
+          }
+          return true;
+        },
+        onSelect: ({ date, formattedDate }) => {
           if (self.onDateSelect) {
             self.onDateSelect(date, formattedDate, dropdown);
           }
