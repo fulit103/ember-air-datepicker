@@ -24,7 +24,7 @@ export default class Examples extends Component {
   }
 
   get maxDate() {
-    return this.addDays(new Date(), 1);
+    return this.addDays(new Date(), 15);
   }
 
   addDays(date, days) {
