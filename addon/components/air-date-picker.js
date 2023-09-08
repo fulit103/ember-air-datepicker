@@ -25,6 +25,15 @@ export default class AirDatePicker extends Component {
         locale: LOCALE_EN,
         range: this.args.range || false,
         autoClose: this.args.autoClose || true,
+        toggleSelected: ({ datepicker }) => {
+          if (self.args.range == true) {
+            if (datepicker.selectedDates.length == 2) {
+              return true;
+            }
+            return false;
+          }
+          return true;
+        },
         onSelect({ date, formattedDate, datepicker }) {
           if (self.args.onDateSelect) {
             self.args.onDateSelect(date, formattedDate, datepicker);

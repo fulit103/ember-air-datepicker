@@ -1,6 +1,6 @@
 {
   "name": "ember-air-datepicker",
-  "version": "0.0.43",
+  "version": "0.0.44",
   "description": "This is an Ember addon that wraps the air-datepicker",
   "keywords": [
     "ember-addon"
