@@ -91,8 +91,19 @@
 
 <h2 id="title">Welcome to Ember</h2>
 
-<AirDatePicker @initialSelectedDates={{this.date}} />
+<AirDatePicker @initialSelectedDates={{this.date}} @minDate={{this.minDate}} @maxDate={{this.maxDate}} />
+
+<h2>Welcome to Ember Min Max Dates</h2>
+
+<AirDatePicker @initialSelectedDates={{this.date}} @minDate={{this.minDate}} @maxDate={{this.maxDate}} />
+
+<h2>Welcome to Ember Monday as first week day</h2>
+
+<AirDatePicker @initialSelectedDates={{this.date}} @firstDay={{1}} />
 
 <h2>Welcome to Ember Range</h2>
 
-<AirDatePicker @initialSelectedDates={{this.rangeDate}} @range={{true}} />
+<AirDatePicker @initialSelectedDates={{this.rangeDate}} @range={{true}} @setDatepicker={{this.setDatepicker}} />
+
+<br>
+<button type="button" {{on "click" this.setDatepickerDates}}>Click Me To Change Selection!</button>

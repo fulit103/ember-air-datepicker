@@ -11,6 +11,8 @@ export default class Examples extends Component {
 
   @tracked showCustomInput = false;
 
+  datepicker = null;
+
   get date() {
     return this._date;
   }
@@ -49,5 +51,17 @@ export default class Examples extends Component {
   clickLastXDays(dp, days) {
     this.showCustomInput = false;
     dp.actions.setDates([this.addDays(new Date(), -days), new Date()]);
+  }
+
+  @action
+  setDatepicker(dp) {
+    this.datepicker = dp;
+  }
+
+  @action
+  setDatepickerDates() {
+    if (this.datepicker) {
+      this.datepicker.selectDate([this.addDays(new Date(), -10), new Date()]);
+    }
   }
 }

@@ -25,6 +25,8 @@ export default class AirDatePicker extends Component {
         locale: LOCALE_EN,
         range: this.args.range || false,
         autoClose: this.args.autoClose || true,
+        firstDay: this.args.firstDay || 0,
+        showOtherMonths: this.args.showOtherMonths || true,
         toggleSelected: ({ datepicker }) => {
           if (self.args.range == true) {
             if (datepicker.selectedDates.length == 2) {
@@ -45,8 +47,23 @@ export default class AirDatePicker extends Component {
         options.selectedDates = [this.args.initialSelectedDates];
       }
 
+      if (this.args.minDate) {
+        options.minDate = this.args.minDate;
+      }
+
+      if (this.args.maxDate) {
+        options.maxDate = this.args.maxDate;
+      }
+
       // eslint-disable-next-line no-undef
       this.datepicker = new AirDatepicker(element, options);
+
+      if (
+        this.args.setDatepicker &&
+        typeof this.args.setDatepicker === 'function'
+      ) {
+        this.args.setDatepicker(this.datepicker);
+      }
     };
     once(initialize);
   }
